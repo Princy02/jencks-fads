@@ -21,6 +21,56 @@ jencks-fads/
 ├── README.md              # Project documentation
 ```
 
+## Search Engine: Interactive Author Highlighting
+This module enhances user navigation in the Jencks Diagram by enabling author-based search, allowing focused exploration and contextual insights across repeated name instances.
+________________________________________
+### 🔧 Features
+•	Smart search bar for real-time author name lookup
+•	Auto-suggestion dropdown activated on keystroke
+•	Click-to-select suggestions for quick navigation
+•	Instant visual feedback:
+o	Selected authors are highlighted in yellow
+o	Non-matching names are dimmed and blurred
+•	Handles multiple instances of the same name across the SVG
+•	Reset button to clear search and restore original view
+•	Search popup displaying number of matches found
+________________________________________
+### 🔍 Matching Logic
+Search functionality operates on clean, case-insensitive comparison of input with <text> elements in the SVG.
+1.	Auto-suggestion
+o	Matches all authors from the CSV whose names start with the typed string
+o	Populates a clickable dropdown list with these matches
+2.	Highlighting
+o	Exact matches in the SVG are highlighted using .highlight class
+o	All others are dimmed and blurred using .blurred class
+3.	Reset Mechanism
+o	Clicking "Reset" reloads the SVG, removes all highlights, and resets the search input
+________________________________________
+### ⚙️ Key Functions
+showSuggestions()
+•	Triggered on every keyup in the input field
+•	Filters names from namesList that start with current input
+•	Populates the .suggestions dropdown dynamically
+selectSuggestion(name)
+•	Called when a dropdown suggestion is clicked
+•	Sets input field value and triggers highlighting via highlightText()
+highlightText()
+•	Loops through all <text> elements in the SVG
+•	If textContent matches input (case-insensitive):
+o	Adds .highlight class and removes .blurred
+•	Else:
+o	Adds .blurred and removes .highlight
+•	Displays a temporary popup with the number of matches found
+resetPage()
+•	Restores original SVG content
+•	Clears search input
+•	Reattaches all event handlers
+•	Hides author detail card
+________________________________________
+### 💡 Integration Note
+This feature is entirely client-side and operates independently of the year slider. However, it coexists smoothly within the combined interface. The styling, color scheme, and interaction model remain consistent with the Jencks aesthetic, supporting seamless user experience.
+
+
 
 ## 🕰️ Timeline Slider: Interactive Year Filtering
 
